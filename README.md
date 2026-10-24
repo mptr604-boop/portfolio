@@ -106,7 +106,10 @@ Automatyka jest **programowalna z poziomu interfejsu**: użytkownik edytuje regu
 - parser RegEx odporny na szumy i błędy transmisji starych maszyn,
 - autorski silnik pamięci podręcznej RAM (TTL, unieważnianie wzorcem SQL `LIKE`, Cache Bypass przy awariach),
 - natywne JWT z rolami i regułami dostępu (RBAC: usuwanie własnych vs cudzych badań),
-- automatyczne testy jednostkowe (`node --test`), Docker i skrypty wdrożeniowe Zero-Downtime z symlinkami.
+- **logi strukturalne (JSON)** z identyfikatorem żądania `request_id` (`AsyncLocalStorage`), maskowaniem sekretów i powodem odrzucenia każdej ramki TCP, żeby łatwiej utrzymywać aplikację,
+- **kontrakt danych pomiaru**: jeden plik jest walidatorem na jedynej bramie zapisu (TCP i HTTP) oraz źródłem generowanej dokumentacji dla osób z laboratorium,
+- **test wydajności** (`npm run perf`, bez zależności): lokalnie ok. 19 tys. żądań/s dla HTTP i 7,4 tys. ramek/s dla TCP, p95 poniżej 2 ms; to punkt odniesienia, nie obietnica produkcyjna,
+- 22 automatyczne testy (`node --test`), Docker i skrypty wdrożeniowe Zero-Downtime z symlinkami oraz rollbackiem.
 
 **Technologie:** Node.js (natywny), SQLite (WAL), TCP sockets, ESP32, JavaScript, HTML/CSS, Docker, Bash, Linux.
 
