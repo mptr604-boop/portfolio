@@ -105,11 +105,12 @@ Automatyka jest **programowalna z poziomu interfejsu**: użytkownik edytuje regu
 - baza danych **SQLite w przemysłowym trybie WAL** (`node:sqlite` / `DatabaseSync`) z hybrydowym modelem dokumentowym NoSQL (`JSON` w kolumnie `nosql_data`),
 - parser RegEx odporny na szumy i błędy transmisji starych maszyn,
 - autorski silnik pamięci podręcznej RAM (TTL, unieważnianie wzorcem SQL `LIKE`, Cache Bypass przy awariach),
-- natywne JWT z rolami i regułami dostępu (RBAC: usuwanie własnych vs cudzych badań),
+- sesje w ciasteczkach (`HttpOnly`, `SameSite=Strict`, w bazie tylko hash identyfikatora), ochrona CSRF, hasła `scrypt` z solą i opcjonalnym kluczem serwera oraz role (RBAC: usuwanie własnych vs cudzych badań); JWT świadomie pominięty,
+- **prawdziwy ESP32 + DHT11**: most serial → TCP, profil „klimat” wybierany po typie urządzenia, ochrona bazy przed zalewem linii z płytki; sprawdzone na sprzęcie,
 - **logi strukturalne (JSON)** z identyfikatorem żądania `request_id` (`AsyncLocalStorage`), maskowaniem sekretów i powodem odrzucenia każdej ramki TCP, żeby łatwiej utrzymywać aplikację,
 - **kontrakt danych pomiaru**: jeden plik jest walidatorem na jedynej bramie zapisu (TCP i HTTP) oraz źródłem generowanej dokumentacji dla osób z laboratorium,
 - **test wydajności** (`npm run perf`, bez zależności): lokalnie ok. 19 tys. żądań/s dla HTTP i 7,4 tys. ramek/s dla TCP, p95 poniżej 2 ms; to punkt odniesienia, nie obietnica produkcyjna,
-- 22 automatyczne testy (`node --test`), Docker i skrypty wdrożeniowe Zero-Downtime z symlinkami oraz rollbackiem.
+- 58 automatycznych testów (`node --test`), w tym przepływy przez prawdziwy serwer, Docker i skrypty wdrożeniowe Zero-Downtime z symlinkami oraz rollbackiem.
 
 **Technologie:** Node.js (natywny), SQLite (WAL), TCP sockets, ESP32, JavaScript, HTML/CSS, Docker, Bash, Linux.
 
