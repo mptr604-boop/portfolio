@@ -12,7 +12,8 @@ Kod z tych projektów nie jest publiczny, więc pokazuję **zrzuty ekranu** i op
 2. [Sterowanie komorą wentylacyjną](#2-sterowanie-komorą-wentylacyjną)
 3. [Kamera drogowa na Raspberry Pi](#3-kamera-drogowa-na-raspberry-pi)
 4. [Laboratorium IoT / LIMS (kontrola paliw)](#4-laboratorium-iot--lims-kontrola-paliw)
-5. [Własne repozytoria](#własne-repozytoria)
+5. [Generator ogłoszeń z AI (projekt edukacyjny)](#5-generator-ogłoszeń-z-ai-projekt-edukacyjny)
+6. [Własne repozytoria](#własne-repozytoria)
 
 ---
 
@@ -115,8 +116,28 @@ Automatyka jest **programowalna z poziomu interfejsu**: użytkownik edytuje regu
 
 ---
 
+## 5. Generator ogłoszeń z AI (projekt edukacyjny)
+
+**Cel.** Poznanie podstaw pracy z modelami AI w praktyce. Potrzebowałem wystawić kilkanaście przedmiotów na Allegro Lokalnie, więc zbudowałem narzędzie, które ze zdjęć i krótkiej notatki robi gotowe ogłoszenie. To projekt do nauki, powstał we współpracy z AI jako asystentem programistycznym, a nie produkt.
+
+**Co zrobiłem:**
+- **structured output**: model zwraca obiekt zgodny ze schematem `zod`, a nie luźny tekst,
+- **multimodalność**: kilka zdjęć jednego przedmiotu plus notatka w jednej wiadomości (Gemini),
+- **ograniczanie halucynacji**: pola `nullable`, lista „do sprawdzenia przez sprzedawcę", prompt zakazujący wymyślania faktów; cenę podaje człowiek, a nie model,
+- **testy bez API** (`node --test`) oraz **ewaluacja na prawdziwym modelu** z regułami, np. „marka ma być `null`, gdy jej nie widać",
+- **batch**: katalog przedmiotów na wejściu, CSV/JSON na wyjściu, limity zapytań, odporność na błędy, logowanie tokenów.
+
+**Wnioski.** Pierwsza wersja pozwalała modelowi podawać cenę i dostałem wartości „z głowy". Poprawka była w kontrakcie danych i prompcie, a nie w samym modelu.
+
+**Technologie:** TypeScript, Node.js, Vercel AI SDK, Gemini API, zod.
+
+**Repozytorium:** [mptr604-boop/allegro-ai](https://github.com/mptr604-boop/allegro-ai) *(kod publiczny)*
+
+---
+
 ## Własne repozytoria
 
 - **[shop](https://github.com/mptr604-boop/shop)** — sklep e-commerce w TypeScript (architektura, CI).
 - **[laboratorium-iot](https://github.com/mptr604-boop/laboratorium-iot)** — telemetria i akwizycja danych laboratoryjnych (natywny Node.js, TCP, SQLite WAL, ESP32).
+- **[allegro-ai](https://github.com/mptr604-boop/allegro-ai)** — projekt edukacyjny: generator ogłoszeń ze zdjęć (Gemini, structured outputs, ewaluacja, batch).
 - **Ubumatic** — skrypt Bash do konfiguracji Ubuntu (GUI Zenity, PL/EN), refaktor i testy. *(link po publikacji repo)*
